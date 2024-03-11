@@ -1,0 +1,43 @@
+%stripe,
+.has-stripe {
+  --stripe-color: black;
+  position: relative;
+  z-index: 0;
+  display: inline-flex;
+  text-decoration: none;
+  line-height: 1.5;
+
+  > .effect {
+    --offset: 0px;
+    --clip: 0%;
+    position: absolute;
+    left: 0;
+    bottom: 10%;
+    width: 0%;
+    height: 2px;
+    background-color: var(--stripe-color);
+    z-index: -1;
+    opacity: 0.8;
+    pointer-events: none;
+    transition: 1s ease;
+    clip-path: polygon(var(--clip) 0, 100% 0, 100% 100%, var(--clip) 100%);
+
+    &.animate-in {
+      width: 100%;
+    }
+    &.animate-out {
+      --clip: 100%;
+    }
+  }
+}
+
+%has-stripes {
+  a {
+    @extend %stripe;
+  }
+}
+
+.has-stripe,
+.has-stripes a {
+  @extend %stripe;
+}

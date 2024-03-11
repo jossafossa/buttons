@@ -1,0 +1,75 @@
+%fancy-border-button {
+  --height: 48px;
+  --border: 4px;
+  --padding: 16px;
+  --border-color: black;
+  --transition: 0.25s;
+  height: var(--height);
+  padding: 0 var(--padding);
+  position: relative;
+  display: flex;
+  isolation: isolate;
+  align-items: center;
+  justify-content: center;
+  --rotation: 180deg;
+  overflow: hidden;
+  transition: 0.25s ease;
+
+  > span {
+    --start: 0deg;
+    --end: 0deg;
+    position: absolute;
+    inset: 0;
+    > span {
+      --offset: 180deg;
+      left: 0;
+      height: 100%;
+      width: 50%;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+
+      > span {
+        height: 300%;
+        width: 300%;
+        position: absolute;
+        right: 0;
+        transform: rotate(calc(180deg - var(--end)));
+        transform-origin: center right;
+        overflow: hidden;
+        transition: var(--time) ease;
+
+        &:after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          right: 0;
+          background-color: var(--border-color);
+          transform-origin: center right;
+          transition: var(--time) ease;
+          rotate: calc(var(--end) + 180deg - var(--start));
+        }
+      }
+
+      &:nth-child(2) {
+        --offset: -180deg;
+        rotate: 180deg;
+        left: 50%;
+      }
+    }
+
+    &.animate-in {
+      --end: 360deg;
+    }
+
+    &.animate-out {
+      --start: 360deg;
+    }
+  }
+}
+
+.fancy-border-button {
+  @extend %fancy-border-button;
+}
